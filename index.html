@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Start a Company</title>
+  <meta name="description" content="A personal, step-by-step checklist for the paperwork of starting a US company: structure, state filings, IRS, bank, licenses, and yearly upkeep.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f6f5c'/%3E%3Cpath d='M9 17l5 5 9-11' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#plan">
+        <span class="logo" aria-hidden="true">✓</span>
+        <span>Start a Company</span>
+      </a>
+      <nav class="tabs" role="tablist">
+        <a href="#plan" role="tab" data-tab="plan">Your plan</a>
+        <a href="#states" role="tab" data-tab="states">Compare states</a>
+      </nav>
+      <button class="icon-btn" id="open-settings" title="Settings (⌘,)" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ── Plan ───────────────────────────────────────── -->
+    <section id="view-plan" class="view">
+      <div class="hero">
+        <h1>All the paperwork of starting a company, in order.</h1>
+        <p>Answer seven questions. You get a checklist built for your state and structure, with real fees, deadlines and the official links.</p>
+      </div>
+
+      <div class="layout">
+        <aside class="card questions" aria-label="About your company">
+          <h2>About your company</h2>
+          <form id="answers" autocomplete="off">
+            <label class="field">
+              <span>Where do you live and work?</span>
+              <select name="state" required>
+                <option value="">Choose a state…</option>
+              </select>
+            </label>
+
+            <fieldset class="field">
+              <legend>Structure</legend>
+              <div class="seg" role="radiogroup">
+                <label><input type="radio" name="entity" value="unsure"><span>Not sure</span></label>
+                <label><input type="radio" name="entity" value="llc"><span>LLC</span></label>
+                <label><input type="radio" name="entity" value="ccorp"><span>C corp</span></label>
+                <label><input type="radio" name="entity" value="scorp"><span>S corp</span></label>
+                <label><input type="radio" name="entity" value="sole"><span>Sole prop</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field" id="formin-field">
+              <legend>Incorporate in</legend>
+              <div class="seg" role="radiogroup">
+                <label><input type="radio" name="formIn" value="DE"><span>Delaware</span></label>
+                <label><input type="radio" name="formIn" value="home"><span>My state</span></label>
+              </div>
+            </fieldset>
+
+            <label class="field">
+              <span>How many founders?</span>
+              <input type="number" name="founders" min="1" max="20" step="1" inputmode="numeric">
+            </label>
+
+            <fieldset class="field">
+              <legend>Will you pay people?</legend>
+              <div class="seg" role="radiogroup">
+                <label><input type="radio" name="hiring" value="none"><span>Not yet</span></label>
+                <label><input type="radio" name="hiring" value="contractors"><span>Contractors</span></label>
+                <label><input type="radio" name="hiring" value="employees"><span>Employees</span></label>
+              </div>
+            </fieldset>
+
+            <div class="checks">
+              <label class="check"><input type="checkbox" name="raisingVC"><span>Planning to raise venture money</span></label>
+              <label class="check"><input type="checkbox" name="profitSoon"><span>Expect $80k+ profit a year soon</span></label>
+              <label class="check"><input type="checkbox" name="salesTax"><span>Selling physical goods or taxable services</span></label>
+              <label class="check"><input type="checkbox" name="regulated"><span>Licensed industry (food, health, finance…)</span></label>
+              <label class="check"><input type="checkbox" name="homeBased"><span>Running it from home</span></label>
+            </div>
+          </form>
+        </aside>
+
+        <div class="plan-col">
+          <div id="empty" class="card empty">
+            <div class="empty-art" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <h2>Pick your state to build your plan</h2>
+            <p>Everything is saved in this browser. Nothing is sent anywhere.</p>
+          </div>
+
+          <div id="plan" hidden>
+            <div class="summary">
+              <div class="stat">
+                <div class="stat-label">Structure</div>
+                <div class="stat-value" id="s-entity"></div>
+                <div class="stat-sub" id="s-where"></div>
+              </div>
+              <div class="stat cost">
+                <div class="stat-label">State fees to start</div>
+                <div class="stat-value" id="s-once"></div>
+                <div class="stat-sub">one time</div>
+              </div>
+              <div class="stat cost">
+                <div class="stat-label">State fees each year</div>
+                <div class="stat-value" id="s-year"></div>
+                <div class="stat-sub">to stay in good standing</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Setup progress</div>
+                <div class="stat-value" id="s-progress"></div>
+                <div class="bar"><div class="bar-fill" id="s-bar"></div></div>
+              </div>
+            </div>
+
+            <div id="recommend" class="note" hidden></div>
+            <div id="phases"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── States ─────────────────────────────────────── -->
+    <section id="view-states" class="view" hidden>
+      <div class="hero">
+        <h1>What each state charges</h1>
+        <p>Formation and upkeep fees for LLCs and corporations in all 50 states and DC. Click a column to sort.</p>
+      </div>
+      <div class="card table-card">
+        <div class="table-tools">
+          <input type="search" id="state-filter" placeholder="Filter states…" aria-label="Filter states">
+          <span class="muted" id="reviewed"></span>
+        </div>
+        <div class="table-scroll">
+          <table id="state-table">
+            <thead>
+              <tr>
+                <th data-k="name">State</th>
+                <th data-k="llc" class="num">LLC to form</th>
+                <th data-k="llcAnnual" class="num">LLC yearly</th>
+                <th data-k="corp" class="num">Corp to form</th>
+                <th data-k="corpAnnual" class="num">Corp yearly</th>
+                <th data-k="due">Report due</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p><strong>Not legal or tax advice.</strong> Fees and rules change. Confirm on the official site linked from each step before you file. <span id="foot-reviewed"></span></p>
+    </footer>
+  </main>
+
+  <!-- Feedback tab -->
+  <button class="feedback-tab" id="open-feedback">Feedback</button>
+  <dialog id="feedback" class="dialog">
+    <form method="dialog" class="dialog-body">
+      <h2>Send feedback</h2>
+      <p class="muted">Wrong fee, missing step, or an idea? This opens a prefilled GitHub issue you can review before posting.</p>
+      <textarea id="feedback-text" rows="5" placeholder="What should change?"></textarea>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">Cancel</button>
+        <button id="feedback-send" value="send" class="btn">Open GitHub issue</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Settings -->
+  <dialog id="settings" class="dialog">
+    <form method="dialog" class="dialog-body" id="settings-form">
+      <h2>Settings</h2>
+      <fieldset class="field">
+        <legend>Appearance</legend>
+        <div class="seg" role="radiogroup">
+          <label><input type="radio" name="theme" value="system"><span>System</span></label>
+          <label><input type="radio" name="theme" value="light"><span>Light</span></label>
+          <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Checklist</legend>
+        <label class="check"><input type="checkbox" name="showCosts"><span>Show costs</span></label>
+        <label class="check"><input type="checkbox" name="hideDone"><span>Hide finished steps</span></label>
+        <label class="check"><input type="checkbox" name="expandAll"><span>Show step details by default</span></label>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Your data</legend>
+        <div class="btn-row">
+          <button type="button" class="btn ghost" id="export">Export</button>
+          <button type="button" class="btn ghost" id="import">Import</button>
+          <button type="button" class="btn ghost" id="print">Print plan</button>
+          <button type="button" class="btn danger" id="reset">Reset all</button>
+        </div>
+        <input type="file" id="import-file" accept="application/json" hidden>
+        <p class="muted small">Saved only in this browser.</p>
+      </fieldset>
+      <div class="dialog-actions">
+        <span class="muted small">Shortcut: ⌘, or Ctrl+,</span>
+        <button value="close" class="btn">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
