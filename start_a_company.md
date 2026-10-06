@@ -95,3 +95,4 @@ CHANGELOG:
 - 2026-10-02 — added a DELIVERABLES field after CONTEXT
 - 2026-10-02 — added meta-instruction: every project has a system design doc at docs/SYSTEM-DESIGN.md
 - 2026-10-05 — added meta-instruction: applications include a settings button or tab
+- 2026-10-06 — spot-checked California fees: LLC Statement of Information is biennial ($810/yr, not $820); noted corporations' first-year $800 exemption
