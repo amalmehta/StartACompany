@@ -21,6 +21,9 @@ export const ENTITY_NAMES = {
   sole: "Sole proprietorship",
 };
 
+// Short names for tight spaces like the summary card.
+export const ENTITY_SHORT = { llc: "LLC", ccorp: "C corp", scorp: "S corp", sole: "Sole proprietor" };
+
 export const DEFAULT_ANSWERS = {
   state: "",
   entity: "unsure", // llc | ccorp | scorp | sole | unsure
@@ -76,6 +79,45 @@ export function resolve(answers) {
 const usd = (n) => (n === 0 ? "Free" : `$${n.toLocaleString("en-US")}`);
 const fee = (st, c) => (c.isCorp ? st.corp : st.llc);
 const annualFee = (st, c) => (c.isCorp ? st.corpAnnual : st.llcAnnual);
+// Registering an out-of-state company often costs more than forming a local one.
+export const foreignFee = (st, c) => {
+  const f = c.isCorp ? st.foreignCorp : st.foreignLlc;
+  return Number.isFinite(f) ? f : fee(st, c);
+};
+// States that require newspaper publication after formation, with a typical cost.
+const PUBLICATION = {
+  NY: { llc: true, corp: false, cost: 1000, label: "$300–$2,000" },
+  AZ: { llc: true, corp: true, cost: 100, label: "$50–$300 (free in Maricopa & Pima)" },
+  NE: { llc: true, corp: true, cost: 150, label: "$50–$300" },
+  GA: { llc: false, corp: true, cost: 40, label: "$40" },
+};
+const publication = (c) => {
+  if (c.isSole) return null;
+  const p = PUBLICATION[c.formState.code];
+  if (!p || !(c.isCorp ? p.corp : p.llc)) return null;
+  return p;
+};
+
+// Answers that work against each other. Shown above the checklist.
+export function warnings(c) {
+  const w = [];
+  if (c.entity === "scorp" && c.a.raisingVC) {
+    w.push("S corps can't take venture money. They allow one class of stock, at most 100 shareholders, and no corporate or foreign owners. If you plan to raise, form a C corp instead.");
+  }
+  if (c.entity === "llc" && c.a.raisingVC) {
+    w.push("Most venture investors won't fund an LLC. You'd have to convert to a Delaware C corp before raising, which is cheaper to avoid by starting as one.");
+  }
+  if (c.isCorp && c.formIn === "home" && c.a.raisingVC && c.home.code !== "DE") {
+    w.push("Investors usually expect a Delaware corporation. Forming at home is fine, but converting later costs legal fees.");
+  }
+  if (c.isSole && c.multiOwner) {
+    w.push(`A sole proprietorship has exactly one owner. With ${c.a.founders} founders you're a general partnership by default, so each of you is personally liable for the others' business debts. Consider an LLC.`);
+  }
+  if (c.isSole && c.a.raisingVC) {
+    w.push("Investors can't buy into a sole proprietorship. You'll need a corporation to raise money.");
+  }
+  return w;
+}
 
 // Each step: id, phase, title, body, cost (number|null), costLabel, time,
 // links [{label,url}], when(c) → boolean.
@@ -170,22 +212,20 @@ const STEPS = [
     phase: "form",
     title: () => "Publish notice of formation",
     body: (c) => `${c.formState.name} requires you to publish a notice in local newspapers after forming. ${c.formState.notes}`,
-    cost: (c) => (c.formState.code === "NY" ? 1000 : 150),
-    costLabel: (c) => (c.formState.code === "NY" ? "$300–$2,000" : "$50–$300"),
+    cost: (c) => publication(c).cost,
+    costLabel: (c) => publication(c).label,
     time: "3–6 weeks",
     links: [{ label: "Details", url: (c) => c.formState.url }],
-    when: (c) =>
-      !c.isSole &&
-      ((c.formState.code === "NY" && c.isLLC) || c.formState.code === "NE" || c.formState.code === "AZ"),
+    when: (c) => Boolean(publication(c)),
   },
   {
     id: "foreign",
     phase: "form",
     title: (c) => `Register in ${c.home.name} as a foreign company`,
     body: (c) =>
-      `Because you're formed in ${c.formState.name} but working from ${c.home.name}, you must also register (\"qualify\") in ${c.home.name}. You'll need a Certificate of Good Standing from ${c.formState.name} first.`,
-    cost: (c) => fee(c.home, c),
-    costLabel: (c) => `~${usd(fee(c.home, c))} state fee`,
+      `Because you're formed in ${c.formState.name} but working from ${c.home.name}, you must also register ("qualify") in ${c.home.name}. You'll need a Certificate of Good Standing from ${c.formState.name} first, and a registered agent in ${c.home.name}.`,
+    cost: (c) => foreignFee(c.home, c),
+    costLabel: (c) => `${usd(foreignFee(c.home, c))} state fee`,
     time: "1–3 weeks",
     links: [{ label: (c) => `${c.home.name} filing office`, url: (c) => c.home.url }],
     when: (c) => c.foreign,
@@ -237,7 +277,7 @@ const STEPS = [
     cost: 10,
     costLabel: "Postage",
     time: "30-day hard deadline",
-    links: [{ label: "IRS Form 15620", url: "https://www.irs.gov/forms-pubs/about-form-15620" }],
+    links: [{ label: "IRS Form 15620 (PDF)", url: "https://www.irs.gov/pub/irs-pdf/f15620.pdf" }],
     when: (c) => c.isCorp,
   },
 
@@ -247,8 +287,10 @@ const STEPS = [
     phase: "federal",
     title: () => "Get an EIN from the IRS",
     body: (c) =>
-      c.isSole
+      c.isSole && c.a.hiring !== "employees"
         ? "Optional for a sole proprietor with no employees, but it lets you avoid giving clients your Social Security number. It's free and instant online."
+        : c.isSole
+          ? "Required once you have employees. It's free and instant online. Never pay a site to get one."
         : "This is your company's tax ID. You need it for the bank, payroll and tax filings. It's free and you get it instantly online. Never pay a site to get one.",
     cost: 0,
     time: "15 minutes",
@@ -260,7 +302,7 @@ const STEPS = [
     phase: "federal",
     title: () => "Elect S corp status (Form 2553)",
     body: () =>
-      "File within 75 days of forming, or by March 15 for it to apply to the current year. After that, run payroll and pay yourself a reasonable salary.",
+      "File within 75 days of forming, or by March 15 for it to apply to the current year. Every owner signs it. S corps allow at most 100 shareholders, all US citizens or residents, and one class of stock. After electing, run payroll and pay yourself a reasonable salary.",
     cost: 0,
     time: "75-day deadline",
     links: [{ label: "IRS Form 2553", url: "https://www.irs.gov/forms-pubs/about-form-2553" }],
@@ -364,7 +406,7 @@ const STEPS = [
     cost: 0,
     costLabel: "Usually free",
     time: "1–2 weeks",
-    links: [{ label: "SBA: State & local taxes", url: "https://www.sba.gov/business-guide/launch-your-business/register-state-local-taxes" }],
+    links: [{ label: "SBA: State & local taxes", url: "https://www.sba.gov/business-guide/manage-your-business/pay-taxes" }],
     when: (c) => c.a.salesTax,
   },
   {
@@ -421,7 +463,7 @@ const STEPS = [
     phase: "hire",
     title: () => "New-hire paperwork",
     body: (c) =>
-      `For each employee: Form I-9 within 3 days, a W-4, and a report to the ${c.home.name} new-hire registry within 20 days. Also put up the required federal and state labor posters.`,
+      `For each employee: Form I-9 by the employee's third business day, a W-4, and a report to the ${c.home.name} new-hire registry within 20 days. Also put up the required federal and state labor posters.`,
     cost: 0,
     time: "Per hire",
     links: [{ label: "USCIS: Form I-9", url: "https://www.uscis.gov/i-9" }],
@@ -443,9 +485,16 @@ const STEPS = [
   {
     id: "annual",
     phase: "yearly",
-    title: (c) => `${c.formState.name} ${c.formState.cadence === "biennial" ? "biennial" : "annual"} report`,
+    title: (c) =>
+      c.formState.code === "DE"
+        ? c.isCorp
+          ? "Delaware franchise tax and annual report — Mar 1"
+          : "Delaware annual LLC tax — Jun 1"
+        : `${c.formState.name} ${c.formState.cadence === "biennial" ? "biennial" : "annual"} report`,
     body: (c) =>
-      `${c.formState.due}. ${annualFee(c.formState, c) === 0 ? "No fee, but you still have to file." : ""} If you miss it, the state can dissolve the company.`.replace(/\s+/g, " "),
+      c.formState.code === "DE" && c.isCorp
+        ? "File online by March 1. Delaware's default bill uses the Authorized Shares method, which can show tens of thousands of dollars for a startup with 10 million authorized shares. Recalculate with the Assumed Par Value Capital method, which usually brings it down to the $400 minimum plus the $50 report fee."
+        : `${c.formState.due}. ${annualFee(c.formState, c) === 0 ? "No fee, but you still have to file." : ""} If you miss it, the state can dissolve the company.`.replace(/\s+/g, " "),
     cost: (c) => annualFee(c.formState, c),
     costLabel: (c) => `${usd(annualFee(c.formState, c))}${c.formState.cadence === "biennial" ? " every 2 years" : "/yr"}`,
     time: "Recurring",
@@ -505,6 +554,44 @@ const STEPS = [
     when: () => true,
   },
   {
+    id: "payroll-filings",
+    phase: "yearly",
+    title: () => "Payroll filings",
+    body: (c) =>
+      `Form 941 every quarter (Apr 30, Jul 31, Oct 31, Jan 31), and by Jan 31 Form 940 plus a W-2 for each employee. ${c.home.name} also has its own withholding and unemployment filings. A payroll provider files all of these for you.`,
+    cost: null,
+    costLabel: "Included with payroll",
+    time: "Recurring",
+    recurring: true,
+    links: [{ label: "IRS Form 941", url: "https://www.irs.gov/forms-pubs/about-form-941" }],
+    when: (c) => c.a.hiring === "employees" || c.entity === "scorp",
+  },
+  {
+    id: "1099s",
+    phase: "yearly",
+    title: () => "Send 1099-NEC forms — Jan 31",
+    body: () =>
+      "Send a 1099-NEC to each contractor you paid over the threshold last year, and file a copy with the IRS. It's the same deadline for both.",
+    cost: 0,
+    time: "Recurring",
+    recurring: true,
+    links: [{ label: "IRS: Form 1099-NEC", url: "https://www.irs.gov/forms-pubs/about-form-1099-nec" }],
+    when: (c) => c.a.hiring !== "none",
+  },
+  {
+    id: "salestax-returns",
+    phase: "yearly",
+    title: () => "File sales tax returns",
+    body: (c) =>
+      `${c.home.name} assigns you a monthly, quarterly or yearly schedule when you register. File on that schedule even when you made no sales, or you'll be charged penalties.`,
+    cost: null,
+    costLabel: "The tax you collected",
+    time: "Recurring",
+    recurring: true,
+    links: [],
+    when: (c) => c.a.salesTax && !["DE", "MT", "NH", "OR"].includes(c.home.code),
+  },
+  {
     id: "minutes",
     phase: "yearly",
     title: () => "Hold the annual board and shareholder meeting",
@@ -549,7 +636,7 @@ export function buildPlan(answers) {
   let stateYearly = 0;
   if (!c.isSole) {
     stateOneTime += fee(c.formState, c);
-    if (c.foreign) stateOneTime += fee(c.home, c);
+    if (c.foreign) stateOneTime += foreignFee(c.home, c);
     const perYear = (st) => {
       const f = annualFee(st, c);
       if (st.cadence === "biennial") return f / 2;
@@ -563,12 +650,15 @@ export function buildPlan(answers) {
   return {
     entity: c.entity,
     entityName: ENTITY_NAMES[c.entity],
+    entityShort: ENTITY_SHORT[c.entity],
     recommended: c.a.entity === "unsure" ? c.rec : null,
     formState: c.formState,
     home: c.home,
     foreign: c.foreign,
     phases,
     steps,
+    warnings: warnings(c),
+    publication: publication(c),
     totals: { stateOneTime, stateYearly: Math.round(stateYearly) },
   };
 }

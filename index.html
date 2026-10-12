@@ -4,42 +4,60 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Start a Company</title>
-  <meta name="description" content="A personal, step-by-step checklist for the paperwork of starting a US company: structure, state filings, IRS, bank, licenses, and yearly upkeep.">
+  <meta name="description" content="A free, personal checklist for the paperwork of starting a US company: structure, state filings, IRS, bank, licenses and yearly upkeep, with real fees for all 50 states and DC.">
+  <meta name="theme-color" content="#f6f4ef">
+  <link rel="canonical" href="https://amalmehta.github.io/StartACompany/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Start a Company">
+  <meta property="og:description" content="All the paperwork of starting a US company, in order, with real fees and official links for your state.">
+  <meta property="og:url" content="https://amalmehta.github.io/StartACompany/">
+  <meta property="og:image" content="https://amalmehta.github.io/StartACompany/docs/images/plan.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f6f5c'/%3E%3Cpath d='M9 17l5 5 9-11' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <script>
+    // Apply a forced theme before first paint so dark mode never flashes light.
+    try {
+      var t = (JSON.parse(localStorage.getItem("start-a-company:v1")) || {}).settings;
+      if (t && (t.theme === "dark" || t.theme === "light")) document.documentElement.setAttribute("data-theme", t.theme);
+    } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2026-10-11">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="#plan">
         <span class="logo" aria-hidden="true">✓</span>
         <span>Start a Company</span>
       </a>
-      <nav class="tabs" role="tablist">
-        <a href="#plan" role="tab" data-tab="plan">Your plan</a>
-        <a href="#states" role="tab" data-tab="states">Compare states</a>
+      <nav class="tabs" aria-label="Pages">
+        <a href="#plan" data-tab="plan">Your plan</a>
+        <a href="#states" data-tab="states">Compare states</a>
       </nav>
-      <button class="icon-btn" id="open-settings" title="Settings (⌘,)" aria-label="Settings">
+      <button class="icon-btn" id="open-settings" title="Settings" aria-label="Settings">
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
       </button>
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap" id="main" tabindex="-1">
+    <noscript><div class="note warn">Start a Company needs JavaScript to build your plan.</div></noscript>
+
     <!-- ── Plan ───────────────────────────────────────── -->
-    <section id="view-plan" class="view">
+    <section id="view-plan" class="view" aria-labelledby="plan-h1">
       <div class="hero">
-        <h1>All the paperwork of starting a company, in order.</h1>
-        <p>Answer seven questions. You get a checklist built for your state and structure, with real fees, deadlines and the official links.</p>
+        <h1 id="plan-h1">All the paperwork of starting a company, in order.</h1>
+        <p>Answer a few questions and get a checklist built for your state and structure, with real fees, deadlines and official links.</p>
       </div>
 
       <div class="layout">
-        <aside class="card questions" aria-label="About your company">
-          <h2>About your company</h2>
-          <form id="answers" autocomplete="off">
+        <aside class="card questions" aria-labelledby="q-h">
+          <h2 id="q-h">About your company</h2>
+          <form id="answers" autocomplete="off" onsubmit="return false">
             <label class="field">
               <span>Where do you live and work?</span>
               <select name="state" required>
@@ -49,21 +67,23 @@
 
             <fieldset class="field">
               <legend>Structure</legend>
-              <div class="seg" role="radiogroup">
+              <div class="seg">
                 <label><input type="radio" name="entity" value="unsure"><span>Not sure</span></label>
                 <label><input type="radio" name="entity" value="llc"><span>LLC</span></label>
                 <label><input type="radio" name="entity" value="ccorp"><span>C corp</span></label>
                 <label><input type="radio" name="entity" value="scorp"><span>S corp</span></label>
                 <label><input type="radio" name="entity" value="sole"><span>Sole prop</span></label>
               </div>
+              <p class="hint" id="entity-hint" aria-live="polite"></p>
             </fieldset>
 
             <fieldset class="field" id="formin-field">
               <legend>Incorporate in</legend>
-              <div class="seg" role="radiogroup">
+              <div class="seg">
                 <label><input type="radio" name="formIn" value="DE"><span>Delaware</span></label>
                 <label><input type="radio" name="formIn" value="home"><span>My state</span></label>
               </div>
+              <p class="hint" id="formin-hint"></p>
             </fieldset>
 
             <label class="field">
@@ -73,21 +93,23 @@
 
             <fieldset class="field">
               <legend>Will you pay people?</legend>
-              <div class="seg" role="radiogroup">
+              <div class="seg">
                 <label><input type="radio" name="hiring" value="none"><span>Not yet</span></label>
                 <label><input type="radio" name="hiring" value="contractors"><span>Contractors</span></label>
                 <label><input type="radio" name="hiring" value="employees"><span>Employees</span></label>
               </div>
             </fieldset>
 
-            <div class="checks">
+            <fieldset class="field checks">
+              <legend>Anything else?</legend>
               <label class="check"><input type="checkbox" name="raisingVC"><span>Planning to raise venture money</span></label>
               <label class="check"><input type="checkbox" name="profitSoon"><span>Expect $80k+ profit a year soon</span></label>
               <label class="check"><input type="checkbox" name="salesTax"><span>Selling physical goods or taxable services</span></label>
               <label class="check"><input type="checkbox" name="regulated"><span>Licensed industry (food, health, finance…)</span></label>
               <label class="check"><input type="checkbox" name="homeBased"><span>Running it from home</span></label>
-            </div>
+            </fieldset>
           </form>
+          <button type="button" class="btn jump" id="jump-plan" hidden>See your plan ↓</button>
         </aside>
 
         <div class="plan-col">
@@ -100,6 +122,7 @@
           </div>
 
           <div id="plan" hidden>
+            <p class="print-only" id="print-summary"></p>
             <div class="summary">
               <div class="stat">
                 <div class="stat-label">Structure</div>
@@ -109,7 +132,7 @@
               <div class="stat cost">
                 <div class="stat-label">State fees to start</div>
                 <div class="stat-value" id="s-once"></div>
-                <div class="stat-sub">one time</div>
+                <div class="stat-sub" id="s-once-sub">one time</div>
               </div>
               <div class="stat cost">
                 <div class="stat-label">State fees each year</div>
@@ -118,12 +141,17 @@
               </div>
               <div class="stat">
                 <div class="stat-label">Setup progress</div>
-                <div class="stat-value" id="s-progress"></div>
-                <div class="bar"><div class="bar-fill" id="s-bar"></div></div>
+                <div class="stat-value" id="s-progress" tabindex="-1"></div>
+                <div class="bar" role="progressbar" aria-label="Setup progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar-fill" id="s-bar"></div></div>
               </div>
             </div>
 
+            <div id="done-banner" class="note done-note" hidden><strong>Setup done.</strong> From here it's just the yearly items at the bottom. Put their dates in your calendar.</div>
             <div id="recommend" class="note" hidden></div>
+            <div id="warnings"></div>
+            <div class="plan-tools">
+              <button type="button" class="link-btn" id="expand-all">Expand all</button>
+            </div>
             <div id="phases"></div>
           </div>
         </div>
@@ -131,26 +159,28 @@
     </section>
 
     <!-- ── States ─────────────────────────────────────── -->
-    <section id="view-states" class="view" hidden>
+    <section id="view-states" class="view" aria-labelledby="states-h1" hidden>
       <div class="hero">
-        <h1>What each state charges</h1>
-        <p>Formation and upkeep fees for LLCs and corporations in all 50 states and DC. Click a column to sort.</p>
+        <h1 id="states-h1">What each state charges</h1>
+        <p>Formation and upkeep fees for LLCs and corporations in all 50 states and DC. Click a column to sort; click a state to open its filing office.</p>
       </div>
       <div class="card table-card">
         <div class="table-tools">
           <input type="search" id="state-filter" placeholder="Filter states…" aria-label="Filter states">
-          <span class="muted" id="reviewed"></span>
+          <span class="muted small" id="state-count" aria-live="polite"></span>
+          <span class="muted small push" id="reviewed"></span>
         </div>
         <div class="table-scroll">
           <table id="state-table">
+            <caption class="sr-only">State filing fees for LLCs and corporations</caption>
             <thead>
               <tr>
-                <th data-k="name">State</th>
-                <th data-k="llc" class="num">LLC to form</th>
-                <th data-k="llcAnnual" class="num">LLC yearly</th>
-                <th data-k="corp" class="num">Corp to form</th>
-                <th data-k="corpAnnual" class="num">Corp yearly</th>
-                <th data-k="due">Report due</th>
+                <th scope="col" data-k="name"><button type="button">State</button></th>
+                <th scope="col" data-k="llc" class="num"><button type="button">LLC to form</button></th>
+                <th scope="col" data-k="llcAnnual" class="num"><button type="button">LLC yearly</button></th>
+                <th scope="col" data-k="corp" class="num"><button type="button">Corp to form</button></th>
+                <th scope="col" data-k="corpAnnual" class="num"><button type="button">Corp yearly</button></th>
+                <th scope="col" data-k="due"><button type="button">Report due</button></th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -160,17 +190,21 @@
     </section>
 
     <footer class="foot">
-      <p><strong>Not legal or tax advice.</strong> Fees and rules change. Confirm on the official site linked from each step before you file. <span id="foot-reviewed"></span></p>
+      <p><strong>Not legal or tax advice.</strong> Fees and rules change. Confirm on the official site linked from each step before you file. <span id="foot-reviewed"></span> <a href="https://github.com/amalmehta/StartACompany" target="_blank" rel="noopener">Source on GitHub</a>.</p>
     </footer>
   </main>
 
+  <div class="sr-only" aria-live="polite" id="announce"></div>
+
   <!-- Feedback tab -->
   <button class="feedback-tab" id="open-feedback">Feedback</button>
-  <dialog id="feedback" class="dialog">
+  <dialog id="feedback" class="dialog" aria-labelledby="fb-h">
     <form method="dialog" class="dialog-body">
-      <h2>Send feedback</h2>
+      <h2 id="fb-h">Send feedback</h2>
       <p class="muted">Wrong fee, missing step, or an idea? This opens a prefilled GitHub issue you can review before posting.</p>
+      <label class="sr-only" for="feedback-text">Your feedback</label>
       <textarea id="feedback-text" rows="5" placeholder="What should change?"></textarea>
+      <label class="check small-check"><input type="checkbox" id="feedback-context" checked><span>Include my state and structure</span></label>
       <div class="dialog-actions">
         <button value="cancel" class="btn ghost">Cancel</button>
         <button id="feedback-send" value="send" class="btn">Open GitHub issue</button>
@@ -179,12 +213,12 @@
   </dialog>
 
   <!-- Settings -->
-  <dialog id="settings" class="dialog">
+  <dialog id="settings" class="dialog" aria-labelledby="set-h">
     <form method="dialog" class="dialog-body" id="settings-form">
-      <h2>Settings</h2>
+      <h2 id="set-h">Settings</h2>
       <fieldset class="field">
         <legend>Appearance</legend>
-        <div class="seg" role="radiogroup">
+        <div class="seg">
           <label><input type="radio" name="theme" value="system"><span>System</span></label>
           <label><input type="radio" name="theme" value="light"><span>Light</span></label>
           <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
@@ -204,16 +238,27 @@
           <button type="button" class="btn ghost" id="print">Print plan</button>
           <button type="button" class="btn danger" id="reset">Reset all</button>
         </div>
-        <input type="file" id="import-file" accept="application/json" hidden>
-        <p class="muted small">Saved only in this browser.</p>
+        <input type="file" id="import-file" accept="application/json,.json" hidden>
+        <p class="muted small" id="data-status" aria-live="polite">Saved only in this browser.</p>
       </fieldset>
       <div class="dialog-actions">
-        <span class="muted small">Shortcut: ⌘, or Ctrl+,</span>
+        <span class="muted small" id="shortcut-hint"></span>
         <button value="close" class="btn">Done</button>
       </div>
     </form>
   </dialog>
 
-  <script type="module" src="src/app.js"></script>
+  <!-- Cache-busting: bump "v" on every deploy so browsers never mix old and new modules. -->
+  <script type="importmap">
+    {
+      "imports": {
+        "./src/app.js": "./src/app.js?v=2026-10-11",
+        "./src/plan.js": "./src/plan.js?v=2026-10-11",
+        "./src/store.js": "./src/store.js?v=2026-10-11",
+        "./src/data/states.js": "./src/data/states.js?v=2026-10-11"
+      }
+    }
+  </script>
+  <script type="module">import "./src/app.js";</script>
 </body>
 </html>

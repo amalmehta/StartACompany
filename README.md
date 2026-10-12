@@ -1,14 +1,14 @@
 # Start a Company
 
-A personal, step-by-step checklist for the paperwork of starting a US company. You answer seven questions and get your structure, state filings, IRS, bank, licenses and yearly upkeep, with real fees and official links.
+A personal, step-by-step checklist for the paperwork of starting a US company. You answer a few questions and get your structure, state filings, IRS, bank, licenses and yearly upkeep, with fees checked for all 50 states and DC.
 
 **[Open the site →](https://amalmehta.github.io/StartACompany/)**
 
 ![Your plan](docs/images/plan.png)
 
-| Compare every state's fees | Dark mode |
-|---|---|
-| ![Compare states](docs/images/states.png) | ![Dark mode](docs/images/plan-dark.png) |
+| Compare every state's fees | On a phone | Dark mode |
+|---|---|---|
+| ![Compare states](docs/images/states.png) | ![Phone](docs/images/mobile.png) | ![Dark mode](docs/images/plan-dark.png) |
 
 ```mermaid
 flowchart LR
@@ -22,5 +22,6 @@ flowchart LR
 - [Instructions](docs/INSTRUCTIONS.md): run it, use it, update the fee data
 - [System design](docs/SYSTEM-DESIGN.md): architecture, flows, decisions, limits
 - [File structure](docs/FILE-STRUCTURE.md): what's where
+- [Improvements log](docs/IMPROVEMENTS.md): the 2026-10-11 review
 
 *Not legal or tax advice. Fees change, so confirm on the official site linked from each step.*

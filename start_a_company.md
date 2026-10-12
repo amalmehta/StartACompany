@@ -74,6 +74,15 @@ Decided without asking:
 - Added a "Compare states" table built from the same fee data, as a small aid for deciding
   where to form.
 
+2026-10-11 review ("find 100 things to improve and nail it"):
+- Read as permission to improve everything already in scope without asking each time: data accuracy, logic,
+  UX, accessibility, tooling, docs. New features were listed as proposals in docs/IMPROVEMENTS.md, not built.
+- Yearly cost rule: report fee + any minimum tax owed regardless of revenue, applied to every state.
+- Delaware corporation yearly cost uses the Assumed Par Value minimum ($450), since startups have
+  millions of authorized shares; the $225 figure applies only with 5,000 or fewer shares.
+- Fee checks used official sources where they loaded; a few came from law-firm summaries or search results
+  where official sites blocked automated access (noted in the agents' reports, not in the UI).
+
 CHANGELOG:
 
 - 2026-10-06 — created
@@ -96,3 +105,6 @@ CHANGELOG:
 - 2026-10-02 — added meta-instruction: every project has a system design doc at docs/SYSTEM-DESIGN.md
 - 2026-10-05 — added meta-instruction: applications include a settings button or tab
 - 2026-10-06 — spot-checked California fees: LLC Statement of Information is biennial ($810/yr, not $820); noted corporations' first-year $800 exemption
+- 2026-10-11 — 110-item review: re-verified fees for all 51 jurisdictions (about 40 corrections), added
+  foreign-registration fees, conflict warnings, recurring payroll/1099/sales-tax items, accessibility fixes,
+  versioned import map, no-cache dev server, link checker, CI and 10 new tests (see docs/IMPROVEMENTS.md)
