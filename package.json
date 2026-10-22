@@ -5,7 +5,9 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "start": "node scripts/serve.mjs",
+    "build": "node scripts/build-pages.mjs",
     "test": "node --test tests/*.test.js",
-    "check-links": "node scripts/check-links.mjs"
+    "check-links": "node scripts/check-links.mjs",
+    "check-sources": "node scripts/check-sources.mjs"
   }
 }

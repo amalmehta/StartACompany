@@ -1,0 +1,332 @@
+{
+  "https://www.sos.alabama.gov/business-entities": {
+    "where": "Alabama fees",
+    "lastModified": null,
+    "hash": "782007b21e90e7c4f1fc68107a9489890c091814da534d95455fe7854669b704",
+    "checked": "2026-10-22"
+  },
+  "https://www.commerce.alaska.gov/web/cbpl/Corporations": {
+    "where": "Alaska fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://azcc.gov/corporations": {
+    "where": "Arizona fees",
+    "lastModified": null,
+    "hash": "43ee7dc2743519f6809b3f95852f2ffeacbf51403577062d1b113d37a4477ffd",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.arkansas.gov/business-commercial-services-bcs": {
+    "where": "Arkansas fees",
+    "lastModified": null,
+    "hash": "d5dd00a9450cef6609f76567c824f4008bd15f2e9a21a6a7bda82a57a26528b3",
+    "checked": "2026-10-22"
+  },
+  "https://bizfileonline.sos.ca.gov": {
+    "where": "California fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://www.coloradosos.gov/biz": {
+    "where": "Colorado fees",
+    "lastModified": null,
+    "hash": "4d13208e1f3504385ba740407c577b5c702a2fe5ccf2d314fd9670a066931ff9",
+    "checked": "2026-10-22"
+  },
+  "https://business.ct.gov": {
+    "where": "Connecticut fees",
+    "lastModified": null,
+    "hash": "4fe6131af2c0d4b0a2eff650c6c8127097f4b5390a67d638a1ee93670dd7b8ef",
+    "checked": "2026-10-22"
+  },
+  "https://corp.delaware.gov": {
+    "where": "Delaware fees",
+    "lastModified": null,
+    "hash": "fb674e235a5695117c9af40fb0286fcb37c62faa92eb1709de7be2752c3cd16e",
+    "checked": "2026-10-22"
+  },
+  "https://dlcp.dc.gov/page/corporations-0": {
+    "where": "District of Columbia fees",
+    "lastModified": null,
+    "hash": "06a7d81200ae5737a71b93d8bb83dc6ceb77ed433e44d9bd865f261ad6737702",
+    "checked": "2026-10-22"
+  },
+  "https://dos.fl.gov/sunbiz/": {
+    "where": "Florida fees",
+    "lastModified": null,
+    "hash": "bb5ac91865d98907a6497f2e8d0cc367d967f0304364c711242b29e4400eef75",
+    "checked": "2026-10-22"
+  },
+  "https://sos.ga.gov/corporations-division-georgia-secretary-states-office": {
+    "where": "Georgia fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://cca.hawaii.gov/breg/": {
+    "where": "Hawaii fees",
+    "lastModified": "2026-10-22T01:37:03.000Z",
+    "hash": "bfaf6a4aaa61fe23167f3a9fe71c8594c26a6a9ecba9c0bf2575dc240a530c84",
+    "checked": "2026-10-22"
+  },
+  "https://sos.idaho.gov/business-services/": {
+    "where": "Idaho fees",
+    "lastModified": "2026-10-20T21:42:55.000Z",
+    "hash": "e7782749c0de559b8c62da3dc87afcd1d3b45823617228d335a53a54793c591d",
+    "checked": "2026-10-22"
+  },
+  "https://www.ilsos.gov/departments/business_services/": {
+    "where": "Illinois fees",
+    "lastModified": null,
+    "hash": "d38dfdb94dfcabb302572ef059bc85da7c9c027430301deb648b6719998b4665",
+    "checked": "2026-10-22"
+  },
+  "https://inbiz.in.gov": {
+    "where": "Indiana fees",
+    "lastModified": null,
+    "hash": "4bf8fb478c4f623e2460c803f7d280e0dbf3cd99b968d8397c4b7b60c4741601",
+    "checked": "2026-10-22"
+  },
+  "https://sos.iowa.gov/business-services": {
+    "where": "Iowa fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://sos.ks.gov/businesses/businesses.html": {
+    "where": "Kansas fees",
+    "lastModified": null,
+    "hash": "f5ce5dd410847cd71bbdb6499ff28a79123d5a25c8d0087758ff25ae8dcbdd60",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.ky.gov/bus/": {
+    "where": "Kentucky fees",
+    "lastModified": null,
+    "hash": "fb6349caab22e9d0195708bc7fe340512e0274797578c5523a85f8daa6d24162",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.la.gov/business-services": {
+    "where": "Louisiana fees",
+    "lastModified": null,
+    "hash": "db43a5c4ab1da88883937a12f821b86567164e0509fa440a396db13764f0929e",
+    "checked": "2026-10-22"
+  },
+  "https://www.maine.gov/sos/corporations-commissions/corporations-business-services": {
+    "where": "Maine fees",
+    "lastModified": null,
+    "hash": "a582aededa637487e96c8440615d4c73b74f46a2476f5ac4bb76b19fac136ccc",
+    "checked": "2026-10-22"
+  },
+  "https://dat.maryland.gov": {
+    "where": "Maryland fees",
+    "lastModified": null,
+    "hash": "8b8f234921efdde8bf243c8f2823336b8ece71c863a2b4845ebe15091fb45fdd",
+    "checked": "2026-10-22"
+  },
+  "https://www.sec.state.ma.us/divisions/corporations/corporations.htm": {
+    "where": "Massachusetts fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://www.michigan.gov/lara/bureau-list/cscl": {
+    "where": "Michigan fees",
+    "lastModified": null,
+    "hash": "ca93728222e4d78a8dbb5ff72e86bc2477042f352f7f6e2c02fde2537ea865d0",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.mn.gov/business-liens/": {
+    "where": "Minnesota fees",
+    "lastModified": null,
+    "hash": "bf934db92e7cc19b36be92fddb89de4c3f61da53dd19659e874eb185e6c1349f",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.ms.gov/business-services": {
+    "where": "Mississippi fees",
+    "lastModified": null,
+    "hash": "34c19a68eb51db2bca7fab89ac0fa939775eafb056c98e0ffedb552996c80c1b",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.mo.gov/business": {
+    "where": "Missouri fees",
+    "lastModified": null,
+    "hash": "2fa520ecccf52f34cde15c8f4598571d80993e9e2eda501cc809fc77ecea54d0",
+    "checked": "2026-10-22"
+  },
+  "https://sosmt.gov/business/": {
+    "where": "Montana fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://sos.nebraska.gov/business-services": {
+    "where": "Nebraska fees",
+    "lastModified": null,
+    "hash": "a9a5896e8cece2166a40b15a209becb7ad0a0555bab3b4ac9182d5d0ec4b4990",
+    "checked": "2026-10-22"
+  },
+  "https://www.nvsos.gov/sos/businesses": {
+    "where": "Nevada fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://www.sos.nh.gov/corporations-0": {
+    "where": "New Hampshire fees",
+    "lastModified": null,
+    "hash": "7d84d9019a82f3979c3de50aabef08cfd70a3b20fc63d672e483d082cdef8bf1",
+    "checked": "2026-10-22"
+  },
+  "https://www.njportal.com/DOR/BusinessFormation/": {
+    "where": "New Jersey fees",
+    "lastModified": null,
+    "hash": "6c9f061ab39569efe8dfa38946cd013c617021b6890954d06ae9104967c73dd0",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.nm.gov/business-services/": {
+    "where": "New Mexico fees",
+    "lastModified": null,
+    "hash": "af39ab86fc96ed96b15474a6ad8efa0a74f4172cf3ee632e9f8daca2a7a6bb86",
+    "checked": "2026-10-22"
+  },
+  "https://dos.ny.gov/division-corporations-state-records-and-uniform-commercial-code": {
+    "where": "New York fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://www.sosnc.gov/divisions/business_registration": {
+    "where": "North Carolina fees",
+    "lastModified": null,
+    "hash": "f47e34b62efe0f03d79a7246f4138b922a788b11598f06b75eed8f467b598bd5",
+    "checked": "2026-10-22"
+  },
+  "https://firststop.sos.nd.gov": {
+    "where": "North Dakota fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://www.ohiosos.gov/business": {
+    "where": "Ohio fees",
+    "lastModified": null,
+    "hash": null,
+    "checked": null
+  },
+  "https://www.sos.ok.gov/business/": {
+    "where": "Oklahoma fees",
+    "lastModified": null,
+    "hash": "633bd73341504aa485cd6d24d261e222f468a595ceae4b86adb061909d63dc00",
+    "checked": "2026-10-22"
+  },
+  "https://sos.oregon.gov/business/": {
+    "where": "Oregon fees",
+    "lastModified": null,
+    "hash": "e79146dc8ea39eb4a10a8a3aafb47aa202b9630c0c4996ba71fa9f0e40b545a9",
+    "checked": "2026-10-22"
+  },
+  "https://www.pa.gov/agencies/dos/programs/business": {
+    "where": "Pennsylvania fees",
+    "lastModified": null,
+    "hash": "2c387e667a8f057400165bbf2ee5295c88669d20698e0961fe7063caa9fd591e",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.ri.gov/divisions/business-services": {
+    "where": "Rhode Island fees",
+    "lastModified": null,
+    "hash": "7b8e01e1276f9561048c7b06c53c5db35e242699b5d9f1f4bca5a5c4c2cb4501",
+    "checked": "2026-10-22"
+  },
+  "https://sos.sc.gov/online-filings": {
+    "where": "South Carolina fees",
+    "lastModified": "2026-10-22T11:42:42.000Z",
+    "hash": "e66094e801956854f649fe988bcd015eb9845b6bf8f8bdcddb5d4ed3a83ca85e",
+    "checked": "2026-10-22"
+  },
+  "https://sdsos.gov/business-services/": {
+    "where": "South Dakota fees",
+    "lastModified": null,
+    "hash": "18afce837c680e31a8cd73449db1b670b1855d6e9525a3dc3bbde613b24d4105",
+    "checked": "2026-10-22"
+  },
+  "https://sos.tn.gov/businesses": {
+    "where": "Tennessee fees",
+    "lastModified": null,
+    "hash": "4d655aeaf10824971a225f5f36e3643279093608b482e6e846c2b3dd5c5f5dcb",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.state.tx.us/corp/index.shtml": {
+    "where": "Texas fees",
+    "lastModified": "2026-10-19T04:17:39.000Z",
+    "hash": "23b4b54eaf217001d1e948af97e94813f24306b27bdbc0414acb22fb3b20ea1f",
+    "checked": "2026-10-22"
+  },
+  "https://commerce.utah.gov/corporations/": {
+    "where": "Utah fees",
+    "lastModified": "2026-09-08T15:56:10.000Z",
+    "hash": "6c23994a98ca5bb748c38cf90dbd6cf8cabd5d59fb277265bcaa81b8fcae015a",
+    "checked": "2026-10-22"
+  },
+  "https://sos.vermont.gov/business-services/": {
+    "where": "Vermont fees",
+    "lastModified": null,
+    "hash": "35977e226944eae2cedd7f724613cf78c053d4b9a29fa796959cb5cee3b6faeb",
+    "checked": "2026-10-22"
+  },
+  "https://cis.scc.virginia.gov": {
+    "where": "Virginia fees",
+    "lastModified": null,
+    "hash": "ea6482c76efcc486ad6109d7636a27c33948f161a24f037c943552e63f922a98",
+    "checked": "2026-10-22"
+  },
+  "https://www.sos.wa.gov/corporations-charities": {
+    "where": "Washington fees",
+    "lastModified": "2026-10-22T08:45:48.000Z",
+    "hash": "c23afff758a7501498713fc264ca5a3e038a28a0996e8c45cd7e893b7beeeba0",
+    "checked": "2026-10-22"
+  },
+  "https://sos.wv.gov/business/": {
+    "where": "West Virginia fees",
+    "lastModified": "2026-10-21T21:14:12.000Z",
+    "hash": "2f10ae39916345b2c1e4cdfc6ea7c92396da5354383bb719fb0923faddf0b072",
+    "checked": "2026-10-22"
+  },
+  "https://dfi.wi.gov/Pages/BusinessServices/BusinessEntities/GeneralInformation.aspx": {
+    "where": "Wisconsin fees",
+    "lastModified": null,
+    "hash": "303b0a73f4f492c598cc07635159cab618e31eaa7617990cb88eba6c3977bb18",
+    "checked": "2026-10-22"
+  },
+  "https://sos.wyo.gov/Business/": {
+    "where": "Wyoming fees",
+    "lastModified": null,
+    "hash": "8b75be9d80a59558946c463f9dadf4531a9bb264622a3b5fd854e585a2ece501",
+    "checked": "2026-10-22"
+  },
+  "https://www.doola.com/pricing/": {
+    "where": "doola price",
+    "lastModified": null,
+    "hash": "baac0619f2ec8231853ecd4f4471ffe735f3874ecf0333561ccaa95835ad79c2",
+    "checked": "2026-10-22"
+  },
+  "https://www.firstbase.io/pricing": {
+    "where": "Firstbase price",
+    "lastModified": "2026-10-20T14:43:22.000Z",
+    "hash": "84d9f3e3e96be6e008765dd6d3b32af2b2473d9be60ef9e7b9fba469da333b21",
+    "checked": "2026-10-22"
+  },
+  "https://www.legalzoom.com/business/business-formation/llc-overview.html": {
+    "where": "LegalZoom price",
+    "lastModified": null,
+    "hash": "3393273e70070de79bb438c0f7bb4777d3b56a303e593dd8b2242efb88b242db",
+    "checked": "2026-10-22"
+  },
+  "https://stripe.com/atlas": {
+    "where": "Stripe Atlas price",
+    "lastModified": null,
+    "hash": "bcf67a8e8f9f8db86c5b4bf3ecc5b685dbb72c736feeb2bfa67b636f840c373b",
+    "checked": "2026-10-22"
+  }
+}

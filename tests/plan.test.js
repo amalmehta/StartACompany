@@ -184,11 +184,18 @@ test("index.html import map versions every browser module", async () => {
   const html = await fs.readFile(new URL("../index.html", import.meta.url), "utf8");
   const map = JSON.parse(html.match(/<script type="importmap">([\s\S]*?)<\/script>/)[1]).imports;
   const versions = new Set();
-  for (const f of ["app.js", "plan.js", "store.js", "data/states.js"]) {
+  for (const f of ["app.js", "plan.js", "store.js", "partners.js", "data/states.js", "data/partners.js"]) {
     const v = map[`./src/${f}`];
     assert.ok(v, f);
     versions.add(v.split("?v=")[1]);
   }
   assert.equal(versions.size, 1, "all modules share one version");
   assert.ok(html.includes(`styles.css?v=${[...versions][0]}`), "stylesheet uses the same version");
+});
+
+test("founders outside the US get the paper EIN route and an S corp warning", () => {
+  const ein = buildPlan({ state: "DE", entity: "llc", nonUS: true }).steps.find((x) => x.id === "ein");
+  assert.match(ein.body, /SS-4/);
+  assert.match(buildPlan({ state: "DE", entity: "scorp", nonUS: true }).warnings.join(" "), /nonresident/);
+  assert.doesNotMatch(buildPlan({ state: "DE", entity: "llc" }).steps.find((x) => x.id === "ein").body, /SS-4/);
 });

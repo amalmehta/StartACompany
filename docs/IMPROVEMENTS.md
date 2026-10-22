@@ -143,4 +143,4 @@
 - Shareable link that encodes the answers.
 - Per-state links to the sales-tax agency and new-hire registry, instead of SBA guidance.
 - A Mac app wrapper. The brief's DELIVERABLES says "website", so it wasn't built.
-- A scheduled job that runs `check-links` monthly and opens an issue on failures.
+- A scheduled job that runs `check-links` monthly and opens an issue on failures. (Built on 2026-10-22 as the weekly check; see docs/GO-LIVE.md.)

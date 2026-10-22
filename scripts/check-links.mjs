@@ -1,5 +1,6 @@
-// Checks every official link the site shows — state filing offices and the
-// IRS/SBA/USPTO links inside steps — and reports any that fail.
+// Checks every link the site shows — state filing offices, the
+// IRS/SBA/USPTO links inside steps, partner price pages and any live referral
+// links — and reports any that fail.
 // Usage: npm run check-links
 // Some state sites block scripts (403/429) yet work in a browser; those are
 // listed separately so they can be checked by hand.
@@ -7,11 +8,18 @@
 import { execFileSync } from "node:child_process";
 import { STATES } from "../src/data/states.js";
 import { buildPlan } from "../src/plan.js";
+import { PARTNERS } from "../src/data/partners.js";
+import { referralUrl } from "../src/partners.js";
 
 const urls = new Map(); // url -> where it's used
 const add = (url, where) => urls.set(url, urls.get(url) || where);
 
 for (const s of STATES) add(s.url, `${s.name} filing office`);
+for (const p of PARTNERS) {
+  add(p.priceSource, `${p.name} price`);
+  const ref = referralUrl(p);
+  if (ref) add(ref, `${p.name} referral link`);
+}
 for (const s of STATES) {
   for (const entity of ["llc", "ccorp", "scorp", "sole"]) {
     const plan = buildPlan({ state: s.code, entity, founders: 2, hiring: "employees", salesTax: true, regulated: true });

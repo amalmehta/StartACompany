@@ -3,6 +3,7 @@
 // Node tests alike.
 
 import { stateByCode } from "./data/states.js";
+import { servicesFor, situations } from "./partners.js";
 
 export const PHASES = [
   { id: "decide", title: "Decide" },
@@ -35,6 +36,7 @@ export const DEFAULT_ANSWERS = {
   regulated: false,
   homeBased: false,
   profitSoon: false, // expects > ~$80k/yr profit soon (S corp question)
+  nonUS: false, // some founders live outside the US
 };
 
 // Plain-language recommendation for people who pick "not sure".
@@ -85,7 +87,7 @@ export const foreignFee = (st, c) => {
   return Number.isFinite(f) ? f : fee(st, c);
 };
 // States that require newspaper publication after formation, with a typical cost.
-const PUBLICATION = {
+export const PUBLICATION = {
   NY: { llc: true, corp: false, cost: 1000, label: "$300–$2,000" },
   AZ: { llc: true, corp: true, cost: 100, label: "$50–$300 (free in Maricopa & Pima)" },
   NE: { llc: true, corp: true, cost: 150, label: "$50–$300" },
@@ -115,6 +117,9 @@ export function warnings(c) {
   }
   if (c.isSole && c.a.raisingVC) {
     w.push("Investors can't buy into a sole proprietorship. You'll need a corporation to raise money.");
+  }
+  if (c.entity === "scorp" && c.a.nonUS) {
+    w.push("S corps can't have owners who are nonresident aliens. If any founder lives outside the US and isn't a US citizen or resident, use an LLC or C corp instead.");
   }
   return w;
 }
@@ -291,9 +296,11 @@ const STEPS = [
         ? "Optional for a sole proprietor with no employees, but it lets you avoid giving clients your Social Security number. It's free and instant online."
         : c.isSole
           ? "Required once you have employees. It's free and instant online. Never pay a site to get one."
-        : "This is your company's tax ID. You need it for the bank, payroll and tax filings. It's free and you get it instantly online. Never pay a site to get one.",
+        : c.a.nonUS
+          ? "This is your company's tax ID. You need it for the bank, payroll and tax filings. The online application needs a US Social Security or taxpayer number, so founders without one file Form SS-4 by fax or mail, or by phone from outside the US. It's free either way."
+          : "This is your company's tax ID. You need it for the bank, payroll and tax filings. It's free and you get it instantly online. Never pay a site to get one.",
     cost: 0,
-    time: "15 minutes",
+    time: (c) => (c.a.nonUS && !c.isSole ? "15 minutes online; weeks by fax or mail" : "15 minutes"),
     links: [{ label: "IRS: Apply for an EIN", url: "https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" }],
     when: () => true,
   },
@@ -624,6 +631,8 @@ export function buildPlan(answers) {
       time: val(s.time, c),
       recurring: Boolean(s.recurring),
       links: (s.links || []).map((l) => ({ label: val(l.label, c), url: val(l.url, c) })),
+      // Paid formation services, only on the filing step and only where they fit.
+      services: s.id === "file" ? servicesFor(situations(c)) : [],
     };
   });
 

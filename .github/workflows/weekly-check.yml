@@ -1,0 +1,82 @@
+name: Weekly check
+# Every Monday: run the tests, check every official link, and compare each
+# fee source with its stored fingerprint (scripts/source-snapshots.json).
+# If anything fails, changes or breaks, open an issue labelled "weekly-check",
+# or comment on the one that's already open.
+on:
+  schedule:
+    - cron: "0 14 * * 1" # Mondays 14:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Tests
+        id: tests
+        continue-on-error: true
+        run: npm test 2>&1 | tee tests.log; exit ${PIPESTATUS[0]}
+
+      - name: Generated pages up to date
+        id: build
+        continue-on-error: true
+        run: npm run build -- --check 2>&1 | tee build.log; exit ${PIPESTATUS[0]}
+
+      - name: Official links
+        id: links
+        continue-on-error: true
+        run: npm run check-links 2>&1 | tee links.log; exit ${PIPESTATUS[0]}
+
+      - name: Fee sources
+        id: sources
+        continue-on-error: true
+        run: npm run check-sources -- --report sources.md 2>&1 | tee sources.log; exit ${PIPESTATUS[0]}
+
+      - name: Open or update the issue
+        if: steps.tests.outcome != 'success' || steps.build.outcome != 'success' || steps.links.outcome != 'success' || steps.sources.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            echo "Weekly check found something to look at. [Full run]($RUN_URL)"
+            echo
+            echo "| Check | Result |"
+            echo "|---|---|"
+            echo "| Tests | ${{ steps.tests.outcome }} |"
+            echo "| Generated pages up to date | ${{ steps.build.outcome }} |"
+            echo "| Official links | ${{ steps.links.outcome }} |"
+            echo "| Fee sources | ${{ steps.sources.outcome }} |"
+            echo
+            if [ -f sources.md ]; then cat sources.md; echo; fi
+            echo "### Link check"
+            echo '```'
+            grep -E "Checked|BROKEN|blocked" links.log || echo "no output"
+            echo '```'
+            if [ "${{ steps.tests.outcome }}" != "success" ]; then
+              echo "### Failing tests"
+              echo '```'
+              grep -E "^not ok|# fail|Error" tests.log | head -40
+              echo '```'
+            fi
+          } > issue.md
+          gh label create weekly-check --color d4a72c --description "Found by the weekly check" --force
+          open=$(gh issue list --label weekly-check --state open --json number --jq '.[0].number')
+          if [ -n "$open" ]; then
+            gh issue comment "$open" --body-file issue.md
+          else
+            gh issue create --title "Weekly check: fee sources or links need a look" --label weekly-check --body-file issue.md
+          fi
+
+      - name: Mark the run as failed
+        if: steps.tests.outcome != 'success' || steps.build.outcome != 'success' || steps.links.outcome != 'success' || steps.sources.outcome != 'success'
+        run: exit 1

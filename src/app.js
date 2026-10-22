@@ -4,6 +4,7 @@
 import { buildPlan, progress, DEFAULT_ANSWERS, ENTITY_NAMES } from "./plan.js";
 import { STATES, DATA_REVIEWED, stateByCode } from "./data/states.js";
 import { load, save, clear, DEFAULT_SETTINGS } from "./store.js";
+import { servicesHTML } from "./partners.js";
 
 const REPO = "amalmehta/StartACompany";
 const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
@@ -25,6 +26,13 @@ const ENTITY_HINTS = {
 
 let state = load();
 state.answers = { ...DEFAULT_ANSWERS, ...state.answers };
+// State pages link here with ?state=XX to start a plan for that state.
+const linked = new URLSearchParams(location.search).get("state");
+if (linked && stateByCode(linked.toUpperCase())) {
+  state.answers.state = linked.toUpperCase();
+  save(state);
+  history.replaceState(null, "", location.pathname + location.hash);
+}
 const expanded = new Set(); // step ids whose details are open
 
 function persist() {
@@ -176,6 +184,7 @@ function stepHTML(s, isOpen, isNext) {
       <div class="details" id="${did}">
         <p>${esc(s.body)}</p>
         ${links ? `<div class="links">${links}</div>` : ""}
+        ${servicesHTML(s.services || [])}
       </div>
     </div>
   </li>`;

@@ -108,3 +108,9 @@ CHANGELOG:
 - 2026-10-11 — 110-item review: re-verified fees for all 51 jurisdictions (about 40 corrections), added
   foreign-registration fees, conflict warnings, recurring payroll/1099/sales-tax items, accessibility fixes,
   versioned import map, no-cache dev server, link checker, CI and 10 new tests (see docs/IMPROVEMENTS.md)
+- 2026-10-22 — commercial readiness: config-driven referral links (doola, Firstbase, LegalZoom; Stripe Atlas
+  listed as no-referral), shown only where they fit, after the official link, with an FTC disclosure and
+  rel="sponsored", and off until IDs are pasted; a "founders outside the US" question; not-legal-advice notice
+  on the checklist; terms and privacy templates; a generated page per state with sitemap, robots.txt and
+  per-page meta; a weekly GitHub Actions check of tests, links and fee sources that opens an issue; 25 new
+  tests (49 total); docs/GO-LIVE.md for the owner-only steps
