@@ -4,17 +4,15 @@
 import { buildPlan, progress, DEFAULT_ANSWERS, ENTITY_NAMES } from "./plan.js";
 import { STATES, DATA_REVIEWED, stateByCode } from "./data/states.js";
 import { load, save, clear, DEFAULT_SETTINGS } from "./store.js";
-import { servicesHTML } from "./partners.js";
+import { esc, servicesHTML } from "./partners.js";
 
 const REPO = "amalmehta/StartACompany";
 const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const esc = (s) =>
-  String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
 const usd = (n) => `$${n.toLocaleString("en-US")}`;
-const extLink = (url, label, cls = "") =>
-  `<a href="${esc(url)}" target="_blank" rel="noopener"${cls ? ` class="${cls}"` : ""}>${esc(label)}<span class="sr-only"> (opens in a new tab)</span></a>`;
+const extLink = (url, label) =>
+  `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}<span class="sr-only"> (opens in a new tab)</span></a>`;
 
 const ENTITY_HINTS = {
   unsure: "We'll recommend one from your other answers.",
@@ -35,10 +33,6 @@ if (linked && stateByCode(linked.toUpperCase())) {
 }
 const expanded = new Set(); // step ids whose details are open
 
-function persist() {
-  save(state);
-}
-
 // ── Theme ──────────────────────────────────────────────────
 function applyTheme() {
   const t = state.settings.theme;
@@ -56,14 +50,18 @@ const form = $("#answers");
 const stateSelect = form.elements.state;
 for (const s of STATES) stateSelect.add(new Option(s.name, s.code));
 
-function fillForm() {
-  const a = state.answers;
-  for (const el of form.elements) {
+// Set a form's named fields from an object of values.
+function fill(f, values) {
+  for (const el of f.elements) {
     if (!el.name) continue;
-    if (el.type === "radio") el.checked = String(a[el.name]) === el.value;
-    else if (el.type === "checkbox") el.checked = Boolean(a[el.name]);
-    else el.value = a[el.name] ?? "";
+    if (el.type === "radio") el.checked = String(values[el.name]) === el.value;
+    else if (el.type === "checkbox") el.checked = Boolean(values[el.name]);
+    else el.value = values[el.name] ?? "";
   }
+}
+
+function fillForm() {
+  fill(form, state.answers);
   syncFormHints();
 }
 
@@ -89,7 +87,7 @@ form.addEventListener("input", () => {
   }
   state.answers = a;
   syncFormHints();
-  persist();
+  save(state);
   renderPlan();
 });
 // Normalise the founders box when it loses focus.
@@ -184,7 +182,7 @@ function stepHTML(s, isOpen, isNext) {
       <div class="details" id="${did}">
         <p>${esc(s.body)}</p>
         ${links ? `<div class="links">${links}</div>` : ""}
-        ${servicesHTML(s.services || [])}
+        ${servicesHTML(s.services)}
       </div>
     </div>
   </li>`;
@@ -206,7 +204,7 @@ $("#phases").addEventListener("change", (e) => {
   const id = e.target.closest(".step").dataset.id;
   if (e.target.checked) state.done[id] = true;
   else delete state.done[id];
-  persist();
+  save(state);
   renderPlan();
   // Re-rendering replaces the checkbox; keep keyboard focus where it was.
   const again = $(`.step[data-id="${CSS.escape(id)}"] input`);
@@ -229,13 +227,11 @@ let sortDir = 1;
 
 function renderStates() {
   const q = $("#state-filter").value.trim().toLowerCase();
-  const rows = STATES.filter((s) => !q || s.name.toLowerCase().includes(q) || s.code.toLowerCase() === q)
-    .slice()
-    .sort((x, y) => {
-      const a = x[sortKey];
-      const b = y[sortKey];
-      return (typeof a === "number" ? a - b : String(a).localeCompare(String(b))) * sortDir;
-    });
+  const rows = STATES.filter((s) => !q || s.name.toLowerCase().includes(q) || s.code.toLowerCase() === q).sort((x, y) => {
+    const a = x[sortKey];
+    const b = y[sortKey];
+    return (typeof a === "number" ? a - b : String(a).localeCompare(String(b))) * sortDir;
+  });
   const per = (s, k) =>
     s.cadence === "none" ? "$0" : `${usd(s[k])}${s.cadence === "biennial" && s[k] ? '<span class="muted"> /2 yrs</span>' : ""}`;
   const home = state.answers.state;
@@ -294,12 +290,7 @@ const settingsDlg = $("#settings");
 const sForm = $("#settings-form");
 
 function openSettings() {
-  const s = state.settings;
-  for (const el of sForm.elements) {
-    if (!el.name) continue;
-    if (el.type === "radio") el.checked = s[el.name] === el.value;
-    else if (el.type === "checkbox") el.checked = Boolean(s[el.name]);
-  }
+  fill(sForm, state.settings);
   if (!settingsDlg.open) settingsDlg.showModal();
 }
 
@@ -307,7 +298,7 @@ sForm.addEventListener("change", (e) => {
   const el = e.target;
   if (!el.name) return;
   state.settings[el.name] = el.type === "checkbox" ? el.checked : el.value;
-  persist();
+  save(state);
   applyTheme();
   renderPlan();
 });
@@ -349,7 +340,7 @@ $("#import-file").addEventListener("change", async (e) => {
       settings: { ...DEFAULT_SETTINGS, ...(d.settings || {}) },
     };
     expanded.clear();
-    persist();
+    save(state);
     applyTheme();
     fillForm();
     renderPlan();
@@ -423,4 +414,3 @@ applyTheme();
 fillForm();
 renderPlan();
 route();
-document.documentElement.classList.add("ready");

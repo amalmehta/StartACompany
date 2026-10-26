@@ -626,8 +626,8 @@ export function buildPlan(answers) {
       phase: s.phase,
       title: val(s.title, c),
       body: val(s.body, c),
-      cost: cost === undefined ? null : cost,
-      costLabel: val(s.costLabel, c) ?? (cost === 0 ? "Free" : cost == null ? "" : usd(cost)),
+      cost: cost ?? null,
+      costLabel: val(s.costLabel, c) ?? (cost == null ? "" : usd(cost)),
       time: val(s.time, c),
       recurring: Boolean(s.recurring),
       links: (s.links || []).map((l) => ({ label: val(l.label, c), url: val(l.url, c) })),
@@ -673,7 +673,6 @@ export function buildPlan(answers) {
 }
 
 export function progress(plan, done) {
-  if (!plan) return { done: 0, total: 0, pct: 0 };
   const setup = plan.steps.filter((s) => !s.recurring);
   const n = setup.filter((s) => done[s.id]).length;
   return { done: n, total: setup.length, pct: setup.length ? Math.round((n / setup.length) * 100) : 0 };

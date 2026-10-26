@@ -38,7 +38,7 @@ export const anyLive = (partners = PARTNERS) => partners.some(isLive);
 // Which situations an answer set is in. c is resolve(answers) from plan.js.
 export function situations(c) {
   const s = new Set();
-  if (!c || c.isSole) return s;
+  if (c.isSole) return s;
   if (c.a.nonUS) s.add("nonUS");
   if (c.isCorp && c.formIn === "DE") s.add("deCorp");
   if (c.isLLC) s.add("llc");
