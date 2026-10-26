@@ -40,6 +40,19 @@ META-INSTRUCTIONS:
 
 <Keep the changelog at the bottom current.>
 
+<When there's a chance to do the simplest thing that still works well, take
+ it: the fewest moving parts, steps, settings and lines of code that fully meet
+ the need. Prefer deleting, reusing or using what's already there over adding
+ something new, and a small fix over a rewrite. Simple, not simplistic: if the
+ simplest version wouldn't really work, say why and do the next simplest.>
+
+<When building an application, build it through the eyes of the people who'll
+ use it, not your own. Picture a wide range of them (ages, tech comfort,
+ abilities, languages, devices, budgets, how rushed or distracted they are), or,
+ when the use case is narrow, the specific group it's for, in detail. Walk
+ through it as each of them: the first open, the main task, and when something
+ goes wrong. Build for what they'd need and notice.>
+
 CONTEXT:
 
 figures out how to deal with all the overhead in terms of legitmizing and starting a company
@@ -114,3 +127,5 @@ CHANGELOG:
   on the checklist; terms and privacy templates; a generated page per state with sitemap, robots.txt and
   per-page meta; a weekly GitHub Actions check of tests, links and fee sources that opens an issue; 25 new
   tests (49 total); docs/GO-LIVE.md for the owner-only steps
+- 2026-10-25 — meta-instruction: take the simplest thing that still works well
+- 2026-10-25 — meta-instruction: build through the eyes of the people who'll use it
