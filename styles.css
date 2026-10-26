@@ -322,7 +322,6 @@ textarea { resize: vertical; }
 @media (max-width: 560px) {
   .topbar-inner { gap: 8px; }
   .brand span:last-child { display: none; }
-  .tabs { margin-left: auto; }
   .tabs a { padding: 7px 9px; font-size: 14px; }
   .hero { padding-top: 24px; }
   .hero p { font-size: 15.5px; }
@@ -332,7 +331,7 @@ textarea { resize: vertical; }
   .step { padding: 12px; gap: 10px; }
   .feedback-tab {
     top: auto; bottom: 12px; transform: none; border: 1px solid var(--line); border-right: 0;
-    border-radius: 8px 0 0 8px; padding: 6px 10px; font-size: 12px; opacity: 0.95; box-shadow: var(--shadow);
+    border-radius: 8px 0 0 8px; padding: 6px 10px; opacity: 0.95; box-shadow: var(--shadow);
   }
 }
 
