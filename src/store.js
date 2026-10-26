@@ -12,20 +12,17 @@ export const DEFAULT_SETTINGS = {
 };
 
 export function load() {
+  let d = {};
   try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) {
-      const d = JSON.parse(raw);
-      return {
-        answers: d.answers || {},
-        done: d.done || {},
-        settings: { ...DEFAULT_SETTINGS, ...(d.settings || {}) },
-      };
-    }
+    d = JSON.parse(localStorage.getItem(KEY)) || {};
   } catch {
     /* storage unavailable or corrupt — start fresh */
   }
-  return { answers: {}, done: {}, settings: { ...DEFAULT_SETTINGS } };
+  return {
+    answers: d.answers || {},
+    done: d.done || {},
+    settings: { ...DEFAULT_SETTINGS, ...(d.settings || {}) },
+  };
 }
 
 export function save(state) {
